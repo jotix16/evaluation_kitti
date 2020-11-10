@@ -1,0 +1,34 @@
+<launch>
+
+    <!-- Args -->
+    <arg name="bag_play"        default="true" />
+    <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/bag.bag --clock -d 10 -s 0" />
+
+    <arg name="rviz"            default="false" />
+    <arg if="$(arg rviz)"       name="rviz_args"     default="$(dirname)/config.rviz" />
+
+    <arg name="bag_record"      default="true" />
+    <arg if="$(arg bag_record)" name="topics_record"  default="/rtabmap/odom /kitti/oxts/imu" />
+    <arg if="$(arg bag_record)" name="out_path"  default="$(dirname)/bag/odom.bag" />
+    <arg if="$(arg bag_record)" name="bag_record_args"  default="$(arg topics_record) -O $(arg out_path)" />
+
+    <node if="$(arg rviz)" type="rviz" name="rviz" pkg="rviz" args="-d $(arg rviz_args)" />
+    <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true" output="screen" />
+    <node if="$(arg bag_record)" pkg="rosbag" type="record" name="rosbagrecord" args=" $(arg bag_record_args)" required="true" output="screen" />
+
+    <!-- launch localization -->
+
+    <!-- launch rtabmap -->
+   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+       <arg name="stereo" value="true"/>
+       <arg name="left_image_topic" value="/kitti/camera_color_left/image_raw" />
+       <arg name="right_image_topic" value="/kitti/camera_color_right/image_raw" />
+       <arg name="left_camera_info_topic" value="/kitti/camera_color_left/camera_info" />
+       <arg name="right_camera_info_topic" value="/kitti/camera_color_right/camera_info" />
+       <arg name="rtabmap_args" value="--delete_db_on_start --RGBD/CreateOccupancyGrid false" />
+       <arg name="approx_sync" value="true" />
+       <arg name="use_sim_time" value="true" />
+       <arg name="frame_id" value="base_link" />
+   </include>
+
+</launch>
