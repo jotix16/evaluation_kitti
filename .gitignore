@@ -1,3 +1,5 @@
-*.bag
-*.txt
-*.png
+**/*.bag
+**/*.txt
+**/*.png
+**/*.bin
+**/*.kitti
