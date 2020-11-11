@@ -9,14 +9,19 @@
 # mv ./odom.kitti ./result/odom.kitti
 
 # run localization_fusion
+source ~/filter_ws/devel/setup.sh
 roslaunch launch.launch
-evo_traj bag ./bag/loc_lib.bag /odometry/filtered --save_as_kitti
-mv ./filtered.kitti ./result/loc_lib.kitti
+cd bag/
+python loc_lib_to_kitti.py
+cd ..
+# evo_traj bag ./bag/loc_lib.bag /odometry/filtered --save_as_kitti
+# mv ./filtered.kitti ./result/loc_lib.kitti
 
 # run robot_localization
+source ~/robloc_ws/devel/setup.sh
 roslaunch launch_robl.launch
 evo_traj bag ./bag/rob_lib.bag /odometry/filtered_rob --save_as_kitti
 mv ./filtered_rob.kitti ./result/rob_lib.kitti
 
 
-evo_traj kitti ./result/loc_lib.kitti ./result/odom.kitti ./result/rob_lib.kitti --ref=./result/04.txt --plot --plot_mode xyz -a --n_to_align 229
+evo_traj kitti ./result/loc_lib_out.kitti ./result/odom.kitti ./result/rob_lib.kitti --ref=./result/04.txt --plot --plot_mode xyz -a --n_to_align 229
