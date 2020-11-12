@@ -34,33 +34,33 @@ def pq_to_transf(p, q):
     return g[0:3, :]
 
 
-def do_it(bag_file, topic_t, out_file, offset):
+def do_it(bag_file, topic_t, out_file, truth):
     timestamp_file = 'timestamps.txt'
     poses_file = '/tmp/kittie.kitti'
-    truth_timestamp_file = 'truth_timestamps.txt'
-    truth_poses_file = '/tmp/truth_kittie.kitti'
     timestamps = open(timestamp_file, 'w')
-    truth_timestamps = open(truth_timestamp_file, 'w')
-    with open(poses_file, 'w') as (outbag), open(truth_poses_file, 'w') as (truth_outbag) :
+    offset = rosbag.Bag(bag_file).get_start_time()
+    if truth:
+        truth_timestamp_file = 'truth_timestamps.txt'
+        truth_poses_file = '/tmp/truth_kittie.kitti'
+        truth_timestamps = open(truth_timestamp_file, 'w')
+        truth_outbag = open(truth_poses_file, 'w')
+    with open(poses_file, 'w') as (outbag) :
         for topic, msg, t in rosbag.Bag(bag_file).read_messages():
             if topic == topic_t:
                 timestamps.writelines([str(t.to_sec() - offset) + '\n'])
                 p = np.array([msg.pose.pose.position.x, msg.pose.pose.position.y, msg.pose.pose.position.z])
-                q = np.array([msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
-                 msg.pose.pose.orientation.z, msg.pose.pose.orientation.w])
+                q = np.array([msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w])
                 T = pq_to_transf(p, q)
                 line = [ str(a) + ' ' for i in T for a in i ]
                 line[-1] = line[(-1)].strip()
                 line.append('\n')
                 outbag.writelines(line)
-            if topic == "/tf" and msg.transforms:
+            if topic == "/tf" and msg.transforms and truth:
                 for m in msg.transforms:
                     if m.header.frame_id == "world" and m.child_frame_id == "base_link_gt":
-                        m.transform.rotation
                         truth_timestamps.writelines([str(t.to_sec() - offset) + '\n'])
                         p = np.array([m.transform.translation.x, m.transform.translation.y, m.transform.translation.z])
-                        q = np.array([m.transform.rotation.x, m.transform.rotation.y,
-                        m.transform.rotation.z, m.transform.rotation.w])
+                        q = np.array([m.transform.rotation.x, m.transform.rotation.y, m.transform.rotation.z, m.transform.rotation.w])
                         T = pq_to_transf(p, q)
                         line = [ str(a) + ' ' for i in T for a in i ]
                         line[-1] = line[(-1)].strip()
@@ -73,12 +73,14 @@ def do_it(bag_file, topic_t, out_file, offset):
     os.remove(timestamp_file)
     file_interface.write_tum_trajectory_file(out_file, trajectory)
 
-    truth_out_file = 'result/truth'
-    truth_timestamps.close()
-    truth_trajectory = kitti_poses_and_timestamps_to_trajectory(truth_poses_file, truth_timestamp_file)
-    # os.remove(truth_poses_file)
-    # os.remove(truth_timestamp_file)
-    file_interface.write_tum_trajectory_file(truth_out_file, truth_trajectory)
+    if truth:
+        truth_out_file = 'result/truth'
+        truth_timestamps.close()
+        truth_outbag.close()
+        truth_trajectory = kitti_poses_and_timestamps_to_trajectory(truth_poses_file, truth_timestamp_file)
+        os.remove(truth_poses_file)
+        os.remove(truth_timestamp_file)
+        file_interface.write_tum_trajectory_file(truth_out_file, truth_trajectory)
 
 if __name__ == '__main__':
     import argparse
@@ -86,6 +88,8 @@ if __name__ == '__main__':
     parser.add_argument('bag_file', help='bag path file in bag format')
     parser.add_argument('topic', help='topic for which to create a TUM file')
     parser.add_argument('trajectory_out', help='output file path for trajectory in TUM format')
-    parser.add_argument('offset', nargs='?', default=0, help='offset to pring in measurement timeframe, time - offset')
+    parser.add_argument('truth', nargs='?', default=False, help='offset to pring in measurement timeframe, time - offset')
     args = parser.parse_args()
-    do_it(args.bag_file, args.topic, args.trajectory_out, args.offset)
+    if args.truth:
+        print("GEET TRUTH")
+    do_it(args.bag_file, args.topic, args.trajectory_out, args.truth)
