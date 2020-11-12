@@ -37,8 +37,11 @@ def pq_to_transf(p, q):
 def do_it(bag_file, topic_t, out_file, offset):
     timestamp_file = 'timestamps.txt'
     poses_file = '/tmp/kittie.kitti'
+    truth_timestamp_file = 'truth_timestamps.txt'
+    truth_poses_file = '/tmp/truth_kittie.kitti'
     timestamps = open(timestamp_file, 'w')
-    with open(poses_file, 'w') as (outbag):
+    truth_timestamps = open(truth_timestamp_file, 'w')
+    with open(poses_file, 'w') as (outbag), open(truth_poses_file, 'w') as (truth_outbag) :
         for topic, msg, t in rosbag.Bag(bag_file).read_messages():
             if topic == topic_t:
                 timestamps.writelines([str(t.to_sec() - offset) + '\n'])
@@ -50,6 +53,19 @@ def do_it(bag_file, topic_t, out_file, offset):
                 line[-1] = line[(-1)].strip()
                 line.append('\n')
                 outbag.writelines(line)
+            if topic == "/tf" and msg.transforms:
+                for m in msg.transforms:
+                    if m.header.frame_id == "world" and m.child_frame_id == "base_link_gt":
+                        m.transform.rotation
+                        truth_timestamps.writelines([str(t.to_sec() - offset) + '\n'])
+                        p = np.array([m.transform.translation.x, m.transform.translation.y, m.transform.translation.z])
+                        q = np.array([m.transform.rotation.x, m.transform.rotation.y,
+                        m.transform.rotation.z, m.transform.rotation.w])
+                        T = pq_to_transf(p, q)
+                        line = [ str(a) + ' ' for i in T for a in i ]
+                        line[-1] = line[(-1)].strip()
+                        line.append('\n')
+                        truth_outbag.writelines(line)
 
     timestamps.close()
     trajectory = kitti_poses_and_timestamps_to_trajectory(poses_file, timestamp_file)
@@ -57,6 +73,12 @@ def do_it(bag_file, topic_t, out_file, offset):
     os.remove(timestamp_file)
     file_interface.write_tum_trajectory_file(out_file, trajectory)
 
+    truth_out_file = 'result/truth'
+    truth_timestamps.close()
+    truth_trajectory = kitti_poses_and_timestamps_to_trajectory(truth_poses_file, truth_timestamp_file)
+    # os.remove(truth_poses_file)
+    # os.remove(truth_timestamp_file)
+    file_interface.write_tum_trajectory_file(truth_out_file, truth_trajectory)
 
 if __name__ == '__main__':
     import argparse
