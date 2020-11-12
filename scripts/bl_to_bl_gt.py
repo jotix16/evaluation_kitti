@@ -1,10 +1,10 @@
 import rosbag
-
+import os
 from tf.msg import tfMessage
-with rosbag.Bag('bag_out.bag', 'w') as outbag:
-    for topic, msg, t in rosbag.Bag('bag.bag').read_messages():
+
+with rosbag.Bag('bag/bag_out.bag', 'w') as outbag:
+    for topic, msg, t in rosbag.Bag('bag/bag.bag').read_messages():
         if topic == "/tf" and msg.transforms:
-            print(t)
             newList = []
             for m in msg.transforms:
                 if m.header.frame_id == "world":

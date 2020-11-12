@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# kitti2bag -t 2011_09_30 -r 0016 raw_synced
-# mv kitti_2011_09_30_drive_0016_synced.bag bag/bag.bag
+# kitti2bag -t 2011_09_30 -r 0020 raw_synced
+# mv kitti_2011_09_30_drive_0020_synced.bag bag/bag.bag
 # python ../scripts/bl_to_bl_gt.py
 
 # get odom with rbtmap
-roslaunch get_odom.launch
-python ../scripts/bag_to_tum.py bag/odom.bag /rtabmap/odom result/odom
+# roslaunch get_odom.launch
+# python ../scripts/bag_to_tum.py bag/odom.bag /rtabmap/odom result/odom
 
 # run localization_fusion
 source ~/filter_ws/devel/setup.sh
