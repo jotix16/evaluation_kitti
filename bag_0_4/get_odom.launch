@@ -1,5 +1,5 @@
 <launch>
-
+    <param name="/use_sim_time" value="true" />
     <!-- Args -->
     <arg name="bag_play"        default="true" />
     <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/bag_out.bag --clock -d 10 -s 0" />

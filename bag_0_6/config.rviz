@@ -6,9 +6,13 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Odometry1
         - /Odometry1/Shape1
+        - /Odometry1/Covariance1/Position1
+        - /Odometry1/Covariance1/Orientation1
+        - /Odometry2
         - /Odometry2/Shape1
-        - /Odometry3
+        - /Odometry2/Covariance1/Orientation1
       Splitter Ratio: 0.5
     Tree Height: 846
   - Class: rviz/Selection
@@ -68,10 +72,10 @@ Visualization Manager:
           Value: true
         Position:
           Alpha: 0.30000001192092896
-          Color: 204; 51; 204
+          Color: 255; 255; 0
           Scale: 1
           Value: true
-        Value: false
+        Value: true
       Enabled: true
       Keep: 100000
       Name: Odometry
@@ -94,7 +98,7 @@ Visualization Manager:
       Covariance:
         Orientation:
           Alpha: 0.5
-          Color: 255; 255; 127
+          Color: 255; 85; 255
           Color Style: Unique
           Frame: Local
           Offset: 1
@@ -105,7 +109,7 @@ Visualization Manager:
           Color: 204; 51; 204
           Scale: 1
           Value: true
-        Value: false
+        Value: true
       Enabled: true
       Keep: 10000
       Name: Odometry
@@ -194,16 +198,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 123.34077453613281
+      Distance: 207.5498046875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -17.69786262512207
-        Y: 38.26829528808594
-        Z: -14.545620918273926
+        X: 48.3693733215332
+        Y: -15.954289436340332
+        Z: -22.92106056213379
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

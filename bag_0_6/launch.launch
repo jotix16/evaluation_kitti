@@ -1,15 +1,15 @@
 <launch>
     <!-- Bag nr -->
-    <arg name="bag_nr"                default="0_4" />
+    <arg name="bag_nr"                default="6" />
 
     <!-- Topics -->
-    <arg name="odom_topic_list" default="[/rtabmap/odom]"/>
+    <arg name="odom_topic_list" default="[/odom]"/>
     <arg name="imu_topic_list" default="[/kitti/oxts/imu]"/>
 
     <!-- Frames -->
     <arg name="map_frame"                default="map" />
     <arg name="odom_frame"               default="odom" />
-    <arg name="base_link_frame"          default="base_link" />
+    <arg name="base_link_frame"          default="baselink" />
     <arg name="config_path"              default="$(dirname)/config.json" />
 
     <!-- Transformations -->
@@ -23,8 +23,8 @@
     <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="$(arg bl_imu_args)" />
 
     <arg name="bag_play"        default="true" />
-    <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/odom.bag --clock -d 5 -s 0" />
-    <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true" output="screen"/>
+    <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/seq_$(arg bag_nr).bag" />
+    <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args) --clock -d 5 -s 0 " required="true" output="screen"/>
 
     <arg name="rviz"            default="false" />
     <arg if="$(arg rviz)"       name="rviz_args"     default="$(dirname)/config.rviz" />
@@ -37,7 +37,7 @@
     <node if="$(arg bag_record)" pkg="rosbag" type="record" name="rosbagrecord" args=" $(arg bag_record_args)" required="true" output="screen" />
 
 
-    <node name="filter_node" pkg="LocalizationFusionLibrary" type="filter_ros_node" output="screen">
+    <node name="filter_node" pkg="LocalizationFusionLibrary" type="filter_ros_node" output="screen" clear_params="true">
       <param name="config" value="$(arg config_path)"/>
       <param name="map_frame" value="$(arg map_frame)"/>
       <param name="odom_frame" value="$(arg odom_frame)"/>
