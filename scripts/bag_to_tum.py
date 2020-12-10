@@ -25,7 +25,10 @@ def kitti_poses_and_timestamps_to_trajectory(poses_file, timestamp_file):
 
 def pq_to_transf(p, q):
     norm = np.linalg.norm(q)
-    if np.abs(norm - 1.0) > 0.001:
+    if np.abs(norm) < 1e-9:
+        q = np.array([0.0, 0.0, 0.0, 1.0])
+        print("oops 0 quaternion(q = {0:s} ".format(str(q)))
+    elif np.abs(norm - 1.0) > 0.001:
         raise ValueError(('Received un-normalized quaternion (q = {0:s} ||q|| = {1:3.6f})').format(str(q), np.linalg.norm(q)))
     elif np.abs(norm - 1.0) > 1e-06:
         q = q / norm

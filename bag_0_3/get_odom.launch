@@ -8,7 +8,7 @@
     <arg if="$(arg rviz)"       name="rviz_args"     default="$(dirname)/config.rviz" />
 
     <arg name="bag_record"      default="true" />
-    <arg if="$(arg bag_record)" name="topics_record"  default="/rtabmap/odom" />
+    <arg if="$(arg bag_record)" name="topics_record"  default="/rtabmap/odom /tf" />
     <arg if="$(arg bag_record)" name="out_path"  default="$(dirname)/bag/odom.bag" />
     <arg if="$(arg bag_record)" name="bag_record_args"  default="$(arg topics_record) -O $(arg out_path)" />
 
