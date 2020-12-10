@@ -91,7 +91,7 @@ if __name__ == '__main__':
     parser.add_argument('bag_file', help='bag path file in bag format')
     parser.add_argument('topic', help='topic for which to create a TUM file')
     parser.add_argument('trajectory_out', help='output file path for trajectory in TUM format')
-    parser.add_argument('truth', nargs='?', default=False, help='offset to pring in measurement timeframe, time - offset')
+    parser.add_argument('truth', nargs='?', default=False, help='truth')
     args = parser.parse_args()
     if args.truth:
         print("GEET TRUTH")

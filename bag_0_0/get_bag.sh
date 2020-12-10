@@ -18,9 +18,15 @@ python ../scripts/bag_to_tum.py bag/loc_lib.bag /odometry/filtered result/loc_li
 # roslaunch launch_robl.launch
 # python ../scripts/bag_to_tum.py bag/rob_lib.bag /odometry/filtered_rob result/rob_lib
 
+<<<<<<< HEAD
 evo_traj tum ./result/rob_lib  --ref=./result/truth --plot
 # evo_traj tum ./result/odom --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
 # # evo_traj tum  ./result/loc_lib ./result/rob_lib --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
+=======
+
+# evo_traj tum ./result/odom --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
+# evo_traj tum  ./result/loc_lib ./result/rob_lib --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
 # evo_traj tum ./result/rob_lib ./result/loc_lib --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
 # evo_traj tum ./result/odom ./result/rob_lib ./result/loc_lib --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &
 # evo_traj tum  ./result/rob_lib --ref=./result/truth --plot --plot_mode xyz -a --n_to_align 100 &

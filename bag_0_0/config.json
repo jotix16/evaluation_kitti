@@ -1,6 +1,10 @@
 {
     "//FILTER":" Here we define the FILTER's parameters",
+<<<<<<< HEAD
     "data_triggered": true,
+=======
+    "data_triggered": false,
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
     "frequency": 30,
     "init_estimate_covariance": [   1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                     0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -41,10 +45,17 @@
 
     "sensor_inputs" : [1, 0, 0, 1, 0],
     "odom_0":{
+<<<<<<< HEAD
         "aatopic_name": "/rtabmap/odom",
         "topic_name": "/loam",
         "update_vector":[true,  true,  true,
                          true,  true,  true,
+=======
+        "topic_name": "/odom",
+        "update_vector":[false, false, false,
+            false, false, false,
+            false, false, false,
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
                          false, false, false,
                          false, false, false,
                          false, false, false],
@@ -53,7 +64,11 @@
     "imu_0":{
         "topic_name": "/kitti/oxts/imu",
         "update_vector":[false, false, false,
+<<<<<<< HEAD
                          false, false, false,
+=======
+            true,  true,  true,
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
                          false, false, false,
                          true,  true,  true,
                          true,  true,  true],

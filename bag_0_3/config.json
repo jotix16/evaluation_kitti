@@ -39,9 +39,9 @@
     "//SENSORS":" Here we define the SENSORS' parameters-",
     "//DOC":" Four types: 0:odom_, 1:pose_, 2:twist_, 3:imu_, 4_gps_",
 
-    "sensor_inputs" : [1, 0, 0, 0, 0],
+    "sensor_inputs" : [1, 0, 0, 1, 0],
     "odom_0":{
-        "topic_name": "rtabmap/odom",
+        "topic_name": "/rtabmap/odom",
         "update_vector":[true,  true,  true,
                          true,  true,  true,
                          true,  true,  true,
@@ -50,9 +50,9 @@
         "mahalanobis_thresh": 15555.0},
 
     "imu_0":{
-        "topic_name": "/imu/data",
+        "topic_name": "/kitti/oxts/imu",
         "update_vector":[false, false, false,
-                         true,  true,  true,
+                         false, false, false,
                          false, false, false,
                          true,  true,  true,
                          true,  true,  true],

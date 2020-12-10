@@ -6,9 +6,19 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+<<<<<<< HEAD:bag_0_5/config.rviz
         - /TF1/Frames1
         - /Odometry1/Covariance1/Position1
         - /Odometry4/Shape1
+=======
+        - /Odometry1
+        - /Odometry1/Shape1
+        - /Odometry1/Covariance1/Position1
+        - /Odometry1/Covariance1/Orientation1
+        - /Odometry2
+        - /Odometry2/Shape1
+        - /Odometry2/Covariance1/Orientation1
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064:bag_0_6/config.rviz
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -90,11 +100,16 @@ Visualization Manager:
           Scale: 1
           Value: true
         Position:
+<<<<<<< HEAD:bag_0_5/config.rviz
           Alpha: 0.10000000149011612
           Color: 255; 85; 0
+=======
+          Alpha: 0.30000001192092896
+          Color: 255; 255; 0
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064:bag_0_6/config.rviz
           Scale: 1
           Value: true
-        Value: false
+        Value: true
       Enabled: true
       Keep: 10000
       Name: Odometry
@@ -117,7 +132,7 @@ Visualization Manager:
       Covariance:
         Orientation:
           Alpha: 0.5
-          Color: 255; 255; 127
+          Color: 255; 85; 255
           Color Style: Unique
           Frame: Local
           Offset: 1
@@ -242,16 +257,26 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
+<<<<<<< HEAD:bag_0_5/config.rviz
       Distance: 3.791271686553955
+=======
+      Distance: 207.5498046875
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064:bag_0_6/config.rviz
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
+<<<<<<< HEAD:bag_0_5/config.rviz
         X: 15.427373886108398
         Y: 6.81648588180542
         Z: 13.801226615905762
+=======
+        X: 48.3693733215332
+        Y: -15.954289436340332
+        Z: -22.92106056213379
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064:bag_0_6/config.rviz
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

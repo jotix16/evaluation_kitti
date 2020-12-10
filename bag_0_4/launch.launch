@@ -4,15 +4,20 @@
     <arg name="bag_nr"                default="0_4" />
 
     <!-- Topics -->
-    <arg name="odom_topic_list" default="[/rtabmap/odom]"/>
+    <!-- <arg name="odom_topic_list" default="[/rtabmap/odom]"/> -->
+    <arg name="odom_topic_list" default="[/odom]"/>
     <arg name="imu_topic_list" default="[/kitti/oxts/imu]"/>
 
     <!-- Frames -->
     <arg name="map_frame"                default="map" />
     <arg name="odom_frame"               default="odom" />
+<<<<<<< HEAD
     <arg name="base_link_frame"          default="base_link" />
     <arg name="camera_frame"             default="camera_color_left2" />
     <arg name="imu_frame"                default="imu_link" />
+=======
+    <arg name="base_link_frame"          default="baselink" />
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
     <arg name="config_path"              default="$(dirname)/config.json" />
 
     <!-- Transformations -->
@@ -27,8 +32,13 @@
     <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="$(arg bl_imu_args)" />
 
     <arg name="bag_play"        default="true" />
+<<<<<<< HEAD
     <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/odom.bag --clock -d 5 -s 0" />
     <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true" output="screen" />
+=======
+    <arg if="$(arg bag_play)"   name="bag_play_args" default="/mnt/e/evaluation/BAGS/seq_0.bag --clock -d 5 -r 5" />
+    <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true"  output="screen"/>
+>>>>>>> 3dd3c5c3163cf443bb759576897c2f29ff36b064
 
     <arg name="rviz"            default="false" />
     <arg if="$(arg rviz)"       name="rviz_args"     default="$(dirname)/config.rviz" />
