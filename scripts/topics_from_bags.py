@@ -19,7 +19,7 @@ def do_it(bag_file1, bag_file2, out_bag, topics_):
             if topic in topics_temp:
                 topics_temp.remove(topic)
 
-        for topic, msg, t in rosbag.Bag(bag_file2).read_messages(topics=topics_):
+        for topic, msg, t in rosbag.Bag(bag_file2).read_messages(topics=topics_temp):
             if topic in topics_:
                 outbag.write(topic, msg, t)
 

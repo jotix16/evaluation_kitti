@@ -10,7 +10,7 @@
 
 ## Add noise to the imu measuremnets because they have 0 covariances
 # python ../scripts/add_noise.py
-# mv bag/out_final.bag bag/.odom
+# mv bag/out_final.bag bag/odom.bag
 
 ## 2. Get lidar odometry with loam
 # python ../scripts/transform_times.py
@@ -21,16 +21,18 @@
 
 
 ### CREATE THE BAG TO BE FUSED
-# python ../scripts/topics_from_bags.py bag/odom.bag bag/loam.bag  bag/final_bag.bag  /rtabmap/odom /lidar/odom /kitti/oxts/imu
+# python ../scripts/topics_from_bags.py bag/odom.bag bag/loam.bag bag/final_bag.bag  /rtabmap/odom /lidar/odom /kitti/oxts/imu /kitti/oxts/gps/fix /kitti/oxts/gps/vel
+
+
 ## 3. Run localization_fusion and create corresponding tum file for evaluation
 # source ~/filter_ws/devel/setup.sh
 # roslaunch launch.launch
 # python ../scripts/bag_to_tum.py bag/loc_lib.bag /odometry/filtered result/loc_lib
 
 ## 4. Run robot_localization and create corresponding tum file for evaluation
-# source ~/robloc_ws/devel/setup.sh
-# roslaunch launch_robl.launch
-# python ../scripts/bag_to_tum.py bag/rob_lib.bag /odometry/filtered_rob result/rob_lib
+source ~/robloc_ws/devel/setup.sh
+roslaunch launch_robl.launch
+python ../scripts/bag_to_tum.py bag/rob_lib.bag /odometry/filtered_rob result/rob_lib
 
 ## Evaluate
 # evo_traj tum ./result/rob_lib ./result/loc_lib ./result/odom --ref=./result/truth --plot # --plot_mode xyz -a --n_to_align 100
