@@ -8,8 +8,8 @@
   <!-- <node pkg="loam_velodyne_kitti_ros" type="scanRegistrationKittiRos" name="scanRegistrationKittiRos" output="screen"/> -->
 
   <node pkg="loam_velodyne_kitti_ros" type="laserOdometryKittiRos" name="laserOdometryKittiRos" respawn="true"/>
-  <node pkg="loam_velodyne_kitti_ros" type="record_loam_odometry.py" name="record_loam_odometry" respawn="true"/>
-  <!-- <node pkg="loam_velodyne_kitti_ros" type="remap_topics.py" name="remap_topics" output="screen" respawn="true"/> -->
+  <node pkg="loam_velodyne_kitti_ros" type="record_loam_odometry.py" name="record_loam_odometry" args="_path:=$(dirname)/" respawn="true"/>
+  <node pkg="loam_velodyne_kitti_ros" type="remap_topics.py" name="remap_topics" output="screen" respawn="true"/>
 
   <node pkg="loam_velodyne_kitti_ros" type="laserMappingKittiRos" name="laserMappingKittiRos"/>
   <node pkg="loam_velodyne_kitti_ros" type="transformMaintenanceKittiRos" name="transformMaintenanceKittiRos"/>

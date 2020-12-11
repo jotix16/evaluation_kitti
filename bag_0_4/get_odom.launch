@@ -29,9 +29,9 @@
        <arg name="approx_sync" value="true" />
        <arg name="use_sim_time" value="true" />
        <arg name="frame_id" value="base_link" />
-       <!-- <arg name="imu_topic" value="/kitti/oxts/imu" />
        <arg name="gps_topic" value="/kitti/oxts/gps/fix" />
-       <arg name="wait_imu_to_init" value="true" /> -->
+       <arg name="imu_topic" value="/kitti/oxts/imu" />
+       <arg name="wait_imu_to_init" value="true" />
        <arg name="ground_truth_frame_id" value="world" />
        <arg name="ground_truth_base_frame_id" value="base_link_gt" />
    </include>

@@ -29,6 +29,8 @@
 # source ~/visual_odometry/devel/setup.sh
 # roslaunch rf2o.launch
 python ../scripts/tum_to_bag.py # creates the bag with syncronized time_stamps and certain noise.
+# python ../scripts/bag_to_tum.py bag/laser_odom.bag /loam result/loam
+
 
 ## 3. Run localization_fusion and create corresponding tum file for evaluation
 # source ~/filter_ws/devel/setup.sh

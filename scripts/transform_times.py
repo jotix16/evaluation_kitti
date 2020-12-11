@@ -15,7 +15,6 @@ with open(output_file, 'w') as (outbag):
     with open(input_file, 'r') as (inbag):
         lines = inbag.readlines()
         for time_stamp in lines:
-            print("EHA", time_stamp)
             if len(time_stamp) == 1:
                 continue
             dt = datetime.strptime(time_stamp[:-4], '%Y-%m-%d %H:%M:%S.%f')

@@ -29,7 +29,8 @@ def pq_to_transf(p, q):
         q = np.array([0.0, 0.0, 0.0, 1.0])
         print("oops 0 quaternion(q = {0:s} ".format(str(q)))
     elif np.abs(norm - 1.0) > 0.001:
-        raise ValueError(('Received un-normalized quaternion (q = {0:s} ||q|| = {1:3.6f})').format(str(q), np.linalg.norm(q)))
+        pass
+        # raise ValueError(('Received un-normalized quaternion (q = {0:s} ||q|| = {1:3.6f})').format(str(q), np.linalg.norm(q)))
     elif np.abs(norm - 1.0) > 1e-06:
         q = q / norm
     g = tr.quaternion_matrix(q)

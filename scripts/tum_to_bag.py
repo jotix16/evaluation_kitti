@@ -11,7 +11,7 @@ os.system("rm bag/laser_odom.bag")
 input_file = "LOAMTrajectory.tum"
 out_bag = "bag/laser_odom.bag"
 pose_cov = 0.1
-orient_cov = 0.3
+orient_cov = 9999 # keine orientation
 
 R_2 = np.eye(4)
 R_2[0,0] = -1
@@ -24,18 +24,19 @@ R_3[0:3,3:4] = t_bl_imu + t_imu_cam
 
 R = np.matmul(R_3, R_2)
 print(R)
-
+# R = np.eye(4)
+# R[0,0] = -1
 table = np.loadtxt(input_file)
 with rosbag.Bag(out_bag, 'w') as (outbag):
     for line in table:
         time = line[0]
-        position = np.matmul(R[0:3,0:3], line[1:4].reshape((3,1)))
+        position = np.matmul(R[0:3,:], np.append(line[1:4], 1).reshape((4,1)))
         quat = line[4:]
         # print("Time: ", time)
         # print("Position: ", position)
         # print("Quaternion: ", quat)
         # print()
-        quat  = tr.quaternion_from_matrix(np.matmul(R, tr.quaternion_matrix(quat)))
+        # quat  = tr.quaternion_from_matrix(np.matmul(R, tr.quaternion_matrix(quat)))
         topic = "/loam"
         msg = Odometry()
         msg.child_frame_id = "base_link"
@@ -54,9 +55,10 @@ with rosbag.Bag(out_bag, 'w') as (outbag):
         cov[3:,3:] *= orient_cov
         msg.pose.covariance = cov.reshape((1,-1)).tolist()[0]
         outbag.write(topic, msg, msg.header.stamp)
-# os.system("LOAMTrajectory.tum")
-os.system("rm loam.kitti")
-os.system("evo_traj bag bag/laser_odom.bag --all_topics --save_as_kitti")
-os.system("evo_traj kitti odom.kitti loam.kitti --plot")
-# os.system("evo_traj bag bag/laser_odom.bag --all_topics --save_as_tum")
-# os.system("evo_traj tum result/truth loam.tum --plot")
+
+# os.system("rm LOAMTrajectory.tum")
+# os.system("rm loam.kitti")
+# os.system("rm odom.kitti")
+# os.system("evo_traj bag bag/laser_odom.bag --all_topics --save_as_kitti")
+# os.system("evo_traj bag bag/odom.bag /rtabmap/odom --save_as_kitti")
+# os.system("evo_traj kitti odom.kitti loam.kitti --plot")
