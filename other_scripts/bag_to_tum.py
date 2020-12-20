@@ -1,14 +1,15 @@
-# uncompyle6 version 3.5.0
-# Python bytecode 2.7 (62211)
-# Decompiled from: Python 2.7.5 (default, Aug  7 2019, 00:51:29) 
-# [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
-# Embedded file name: /home/mzhobro/kitti_dataset/evaluation/scripts/bag_to_tum.py
-# Compiled at: 2020-11-12 01:37:33
+#Autor > Mikel Zhobro
 import os, numpy as np, rosbag, tf.transformations as tr
 from evo.core.trajectory import PoseTrajectory3D
 from evo.tools import file_interface
-DESC = 'Combine KITTI poses and timestamps files to a TUM trajectory file'
 
+
+
+
+DESC = 'Combine KITTI poses and timestamps files to a TUM trajectory file'
+# EXAMPLE
+# python ../scripts/bag_to_tum.py bag/loc_lib.bag /odometry/filtered result/loc_lib
+# python ../scripts/bag_to_tum.py bag/rob_lib.bag /odometry/filtered_rob result/rob_lib
 def kitti_poses_and_timestamps_to_trajectory(poses_file, timestamp_file):
     pose_path = file_interface.read_kitti_poses_file(poses_file)
     raw_timestamps_mat = file_interface.csv_read_matrix(timestamp_file)
@@ -39,6 +40,7 @@ def pq_to_transf(p, q):
 
 
 def do_it(bag_file, topic_t, out_file, truth):
+    print("TRUTH", truth)
     timestamp_file = 'timestamps.txt'
     poses_file = '/tmp/kittie.kitti'
     timestamps = open(timestamp_file, 'w')
@@ -73,18 +75,18 @@ def do_it(bag_file, topic_t, out_file, truth):
 
     timestamps.close()
     trajectory = kitti_poses_and_timestamps_to_trajectory(poses_file, timestamp_file)
+    file_interface.write_tum_trajectory_file(out_file, trajectory)
     os.remove(poses_file)
     os.remove(timestamp_file)
-    file_interface.write_tum_trajectory_file(out_file, trajectory)
 
     if truth:
         truth_out_file = 'result/truth'
         truth_timestamps.close()
         truth_outbag.close()
         truth_trajectory = kitti_poses_and_timestamps_to_trajectory(truth_poses_file, truth_timestamp_file)
+        file_interface.write_tum_trajectory_file(truth_out_file, truth_trajectory)
         os.remove(truth_poses_file)
         os.remove(truth_timestamp_file)
-        file_interface.write_tum_trajectory_file(truth_out_file, truth_trajectory)
 
 if __name__ == '__main__':
     import argparse
@@ -94,6 +96,5 @@ if __name__ == '__main__':
     parser.add_argument('trajectory_out', help='output file path for trajectory in TUM format')
     parser.add_argument('truth', nargs='?', default=False, help='truth')
     args = parser.parse_args()
-    if args.truth:
-        print("GEET TRUTH")
+
     do_it(args.bag_file, args.topic, args.trajectory_out, args.truth)

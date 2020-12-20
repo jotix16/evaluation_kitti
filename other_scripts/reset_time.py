@@ -1,3 +1,5 @@
+#Autor > Mikel Zhobro
+
 import os, numpy as np, rosbag, tf.transformations as tr
 from evo.core.trajectory import PoseTrajectory3D
 from evo.tools import file_interface

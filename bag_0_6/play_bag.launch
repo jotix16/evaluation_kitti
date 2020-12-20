@@ -1,6 +1,0 @@
-<launch>
-<node pkg="tf2_ros" type="static_transform_publisher" name="map_odom"  args="0 0 0 0 0 0 map odom" />
-<node pkg="rosbag" type="play" name="rosbagplay_rob" args=" $(dirname)/bag/rob_lib.bag" output="screen"/>
-<node pkg="rosbag" type="play" name="rosbagplay_loc" args=" $(dirname)/bag/loc_lib.bag" output="screen"/>
-<node type="rviz" name="rviz" pkg="rviz" args="-d $(dirname)/config.rviz" />
-</launch>

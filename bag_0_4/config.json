@@ -39,9 +39,18 @@
     "//SENSORS":" Here we define the SENSORS' parameters-",
     "//DOC":" Four types: 0:odom_, 1:pose_, 2:twist_, 3:imu_, 4_gps_",
 
-    "sensor_inputs" : [1, 0, 0, 1, 0],
+    "sensor_inputs" : [2, 0, 0, 1, 0],
     "odom_0":{
-        "topic_name": "/odom",
+        "topic_name": "/odom_lidar",
+        "update_vector":[true,  true,  true,
+                         false, false, false,
+                         true,  true,  true,
+                         true,  true,  true,
+                         false, false, false],
+        "mahalanobis_thresh": 15555.0},
+
+    "odom_1":{
+        "topic_name": "/rtabmap/odom",
         "update_vector":[true,  true,  true,
                          false, false, false,
                          true,  true,  true,

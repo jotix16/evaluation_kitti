@@ -1,3 +1,5 @@
+#Autor > Mikel Zhobro
+
 import tf.transformations as tr
 import numpy as np
 import os

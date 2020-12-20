@@ -8,7 +8,7 @@
     <arg if="$(arg rviz)"       name="rviz_args"     default="$(dirname)/config.rviz" />
 
     <arg name="bag_record"      default="true" />
-    <arg if="$(arg bag_record)" name="topics_record"  default="/rtabmap/odom /kitti/oxts/imu /kitti/oxts/gps/fix /kitti/oxts/gps/vel /tf" />
+    <arg if="$(arg bag_record)" name="topics_record"  default="/odom_gt /rtabmap/odom /kitti/oxts/imu /kitti/oxts/gps/fix /kitti/oxts/gps/vel /tf_static /tf /kitti/velo/pointcloud" />
     <arg if="$(arg bag_record)" name="out_path"  default="$(dirname)/bag/odom.bag" />
     <arg if="$(arg bag_record)" name="bag_record_args"  default="$(arg topics_record) -O $(arg out_path)" />
     <!-- <arg if="$(arg bag_record)" name="bag_record_args"  default="-a -O $(arg out_path)" /> -->
@@ -17,7 +17,7 @@
     <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true" output="screen" />
     <node if="$(arg bag_record)" pkg="rosbag" type="record" name="rosbagrecord" args=" $(arg bag_record_args)" required="true" output="screen" />
 
-    <!-- launch rtabmap -->
+   <!-- launch rtabmap -->
    <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
        <arg name="rtabmapviz" value="false"/>
        <arg name="stereo" value="true"/>
@@ -29,5 +29,10 @@
        <arg name="approx_sync" value="true" />
        <arg name="use_sim_time" value="true" />
        <arg name="frame_id" value="base_link" />
+       <arg name="imu_topic" value="/kitti/oxts/imu" />
+       <arg name="wait_imu_to_init" value="true" />
+       <!-- <arg name="gps_topic" value="/kitti/oxts/gps/fix" />
+       <arg name="ground_truth_frame_id" value="world" />
+       <arg name="ground_truth_base_frame_id" value="base_link_gt" /> -->
    </include>
 </launch>

@@ -1,3 +1,5 @@
+#Autor > Mikel Zhobro
+
 import os, numpy as np, rosbag, tf.transformations as tr
 import rospy
 from datetime import datetime

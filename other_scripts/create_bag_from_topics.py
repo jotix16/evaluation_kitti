@@ -1,3 +1,5 @@
+#Autor > Mikel Zhobro
+
 import os, numpy as np, rosbag, tf.transformations as tr
 DESC = 'Combine multiple topics from different bags in one bag'
 
