@@ -32,11 +32,10 @@ rosbag info bag/fusion.bag
 rm bag/loam.bag bag/bag_out.bag bag/odom.bag
 
 ## 3. Run localization_fusion and create corresponding tum file for evaluation
-source ~/filter_ws/devel/setup.sh
+source ../../../../devel/setup.sh
 roslaunch launch_loc.launch
 
 ## 4. Run robot_localization and create corresponding tum file for evaluation
-source ~/robloc_ws/devel/setup.sh
 roslaunch launch_robl.launch
 
 ## Evaluate
