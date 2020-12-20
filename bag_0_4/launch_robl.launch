@@ -18,7 +18,7 @@
     <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom"  args="$(arg map_odom_args)" />
 
     <arg name="bag_play"        default="true" />
-    <arg if="$(arg bag_play)"   name="bag_play_args" default="/mnt/e/evaluation/BAGS/seq_0.bag --clock -d 5 -r 5" />
+    <arg if="$(arg bag_play)"   name="bag_play_args" default="$(dirname)/bag/fusion.bag --clock -d 5 -r 5" />
     <node if="$(arg bag_play)" pkg="rosbag" type="play" name="rosbagplay" args=" $(arg bag_play_args)" required="true" output="screen" />
 
     <arg name="rviz"            default="false" />
