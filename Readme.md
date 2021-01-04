@@ -20,6 +20,7 @@ catkin_make
 ``` bash
 
 cd ~/eval_ws/src/evaluation_kitti/eval/bag_0_4/
+# make sure to outcomment the lines where the dataset gets downloaded
 ./run_eval.sh
 ```
 
