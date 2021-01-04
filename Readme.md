@@ -8,7 +8,7 @@ sudo apt install ros-melodic-robot-localization
 
 mkdir -p ~/eval_ws/src
 cd ~/eval_ws/src
-git clone git@github.com:jotix16/Localization_Fusion_Library.git
+git clone [...]Localization_Fusion_Library.git
 git clone https://github.com/jotix16/evaluation_kitti.git
 cd ~/eval_ws
 catkin_make
